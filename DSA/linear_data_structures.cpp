@@ -1,66 +1,198 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class sll_node
+
+//day02
+class SinglyLinkedListNode 
 {
     public:
         int data;
-        sll_node *next;
+        SinglyLinkedListNode *next;
 
-    sll_node(int data)
-    {
-        this->data = data;
-        this->next = nullptr;
-    }
+        SinglyLinkedListNode(int node_data)
+        {
+            this->data = node_data;
+            this->next = nullptr;
+        }
 };
 
-class SLL
+class SinglyLinkedList 
 {
     public:
-        sll_node *head;
-        sll_node *tail;
+        SinglyLinkedListNode *head;
+        SinglyLinkedListNode *tail;
 
-        SLL()
-        {
+        SinglyLinkedList() {
             this->head = nullptr;
             this->tail = nullptr;
         }
 
-    void insert(int data)
-    {
-    sll_node* new_node = new sll_node(data);
-    cout<<this->head->data;
-    if (!this->head)
-        this->head = new_node;
-    else
-        this->tail->next = new_node;
-    this->tail = new_node;
-    }
+        void insert_node(int node_data) {
+            SinglyLinkedListNode* node = new SinglyLinkedListNode(node_data);
 
-    // void display()
-    // {
-    //     while()
-    // }
+            if (!this->head) {
+                this->head = node;
+            } else {
+                this->tail->next = node;
+            }
+            this->tail = node;
+            cout<<"\n";
+            display();
+        }
+
+        void insert(int data)
+        {
+            SinglyLinkedListNode* new_node = new SinglyLinkedListNode(data);
+            new_node->next = NULL;
+            if (head == NULL)
+            {
+                cout<<"Head is null so inserting: "<<data<<" ";
+                head = new_node;
+            }
+            else
+            {
+                SinglyLinkedListNode* ptr = head;
+                while(ptr->next!=NULL)
+                    ptr = ptr->next;
+                ptr->next = new_node;
+            }
+        }
+
+        void insert_start(int data)
+        {
+            SinglyLinkedListNode* new_node = new SinglyLinkedListNode(data);
+            if (head == nullptr)
+                head = new_node;
+            else
+            {
+                new_node->next = head;
+                head = new_node;
+            }
+        }
+        void display()
+        {
+            SinglyLinkedListNode* ptr = head;
+            while(ptr!=NULL)
+            {
+                cout<<ptr->data<<" ";
+                ptr = ptr->next;
+            }
+        }
+
 };
 
-// void display_sll(sll_node* node)
-// {
-//     while(node)
-//     {
-//         cout<<node->data;
-//         node = node->next;
-//     }
-// }
+class stack1
+{
+    public:
+        SinglyLinkedListNode* head;
+    stack1()
+    {
+        head = nullptr;
+    }
+
+    //similar to insert at start for sll
+    void push(int data)
+    {
+            SinglyLinkedListNode* new_node = new SinglyLinkedListNode(data);
+            if (head == nullptr)
+                head = new_node;
+            else
+            {
+                new_node->next = head;
+                head = new_node;
+            }
+    }
+
+    void pop()
+    {
+        if(head==nullptr)
+        {
+            cout<<"\nempty stack";
+            return;
+        }
+        cout<<"\nValue popped is: "<<head->data;
+        head = head->next;
+    }
+};
+
+
+class queue1
+{
+    public:
+        SinglyLinkedListNode* head;
+        SinglyLinkedListNode* tail;
+    queue1()
+    {
+        head = nullptr;
+        tail = nullptr;
+    }
+
+    void enq(int data)
+    {
+        SinglyLinkedListNode* new_node = new SinglyLinkedListNode(data);
+        new_node->next = NULL;
+        if(head == NULL)
+            head = tail = new_node;
+        else
+        {
+            tail->next = new_node;
+            tail = new_node;         
+        }
+    }
+    void deq()
+    {
+        if (head==NULL)
+        {
+            "\nEmpty queue";
+            return;
+        }
+        cout<<"\nElement dequeued is: "<<head->data;
+        head = head->next;
+    }
+};
+
+void display(SinglyLinkedListNode* head)
+{
+    cout<<"\nDisplaying elements: ";
+    SinglyLinkedListNode* ptr = head;
+    while(ptr!=NULL)
+    {
+        cout<<ptr->data<<" ";
+        ptr = ptr->next;
+    }
+}
 
 
 int main()
 {
-    SLL *tmp = new SLL();
-    tmp->insert(1);
-    tmp->insert(2);
-    tmp->insert(3);
-    tmp->insert(4);
-    // display_sll(this->head);
-    return 1;
+    //sll operations
+    // SinglyLinkedList* sll = new SinglyLinkedList();
+    // sll->insert_start(1);
+    // sll->insert_start(2);
+    // sll->insert_start(3);
+    // sll->insert_start(4);
+    // sll->insert_start(5);
+    // display(sll->head);
 
+    //stack operations
+    // stack1* s = new stack1();
+    // s->push(1);
+    // s->push(2);
+    // s->push(3);
+    // s->push(4);
+    // display(s->head);
+    // s->pop();
+    // display(s->head);
+
+    //queue operatons
+    queue1* q = new queue1;
+    q->enq(1);
+    q->enq(2);
+    q->enq(3);
+    q->enq(4);
+    display(q->head);
+    q->deq();
+    display(q->head);
+
+    return 1;
 }
