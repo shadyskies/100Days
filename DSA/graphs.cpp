@@ -42,11 +42,6 @@ void bfs(vector<int>v[], int V, int start, int end)
     }
 }
 
-
-// void iter(vector<int>v[], vector<int>visited, stack<int>s)
-// {
-    
-// }
 //dfs between start and end nodes
 void dfs(vector<int>v[], int V, int start, int end)
 {
